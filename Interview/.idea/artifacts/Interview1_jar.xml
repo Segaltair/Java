@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="Interview1.jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/Interview1_jar</output-path>
+    <root id="archive" name="Interview.jar">
+      <element id="module-output" name="Interview" />
+    </root>
+  </artifact>
+</component>
