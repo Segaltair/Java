@@ -1,0 +1,4 @@
+Moscow,50,200;Nizhniy Novgorod,250,180;Cheboksary,370,190;Kazan,445,200;Saint Petersburg,30,30;
+Moscow - Kazan,Moscow,Nizhniy Novgorod,Cheboksary,Kazan;Moscow - Saint Petersburg,Saint Petersburg,Moscow;
+A96,Moscow - Kazan,300,1200,2017-02-04T17:12:59,20;B64,Moscow - Saint Petersburg,400,1800,2017-02-04T17:13:04,20;C46,Moscow - Saint Petersburg,400,1800,2017-02-04T17:13:09,30;
+Василий Петрович,A96;Оби-ван-Кеноби,B64;Питер Паркер,B64;Том Харди,B64;Илон Маск,C46;

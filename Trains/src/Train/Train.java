@@ -35,11 +35,6 @@ public class Train {
         passengerList = new ArrayList<>();
     }
 
-    public String getTrain(){
-        String s = name + ", capacity " + capacity + ", price " + price + ", timeStart " + timeStart + ", velocity " + velocity;
-        return s;
-    }
-
     public void whereIsTrainNow(LocalDateTime currentTime){
         if (currentTime.isEqual(timeStart) || currentTime.isAfter(timeStart)) {
             if(route.listOfStations.size() != passed + 1) {
@@ -57,7 +52,8 @@ public class Train {
                     x = route.listOfStations.get(passed).x;
                     y = route.listOfStations.get(passed).y;
                     passedSeconds += seconds;
-                }}
+                }
+            }
         }
     }
 }

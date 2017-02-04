@@ -19,10 +19,10 @@ public class Controller {
     public static ArrayList<Train> trains = new ArrayList<>();
     public static ArrayList<Passenger> passengers = new ArrayList<>();
 
-    static Station station;
-    static Route route;
-    static Train train;
-    static Passenger passenger;
+    private static Station station;
+    private static Route route;
+    private static Train train;
+    private static Passenger passenger;
 
     public static void createRoute(String name){
         route = new Route();
@@ -73,9 +73,6 @@ public class Controller {
         for (int i = 0; i < trains.size(); i++) {
             if (train.equals(trains.get(i))) {
                 trains.remove(i);
-//                for (int j = i; j < trains.size(); j++) {
-//                    train.indexOfRoute--;
-//                }
                 break;
             }
         }
@@ -92,6 +89,8 @@ public class Controller {
 
     //Заполняем карту
     static void createData(){
+
+        //Текущее время
         LocalDateTime localDateTime = LocalDateTime.of(now().getYear(), now().getMonth(), now().getDayOfMonth(), now().getHour(), now().getMinute(), now().getSecond());
 
         createStation("Moscow",50,200);
@@ -110,8 +109,8 @@ public class Controller {
         createRoute("Moscow - Saint Petersburg");
         route.addStationToRoute(stations.get(4));
         route.addStationToRoute(stations.get(0));
-        createTrain("B64", route, 400, 1800, localDateTime.plusSeconds(5),10);
-        createTrain("C46", route, 400, 1800, localDateTime.plusSeconds(10),6);
+        createTrain("B64", route, 400, 1800, localDateTime.plusSeconds(5),20);
+        createTrain("C46", route, 400, 1800, localDateTime.plusSeconds(10),30);
 
         createPassenger("Василий Петрович", trains.get(0));
         createPassenger("Оби-ван-Кеноби", trains.get(1));
@@ -120,43 +119,8 @@ public class Controller {
         createPassenger("Илон Маск", trains.get(2));
     }
 
-    //Вывод данных в консоль
-    static void output(){
-        System.out.println("Список станций");
-        for (int i = 0; i < stations.size(); i++) {
-            System.out.println(stations.get(i).getStation());
-        }
-        System.out.println();
-
-        System.out.println("Список поездов");
-        for (int i = 0; i < trains.size(); i++) {
-            System.out.println(trains.get(i).getTrain());
-        }
-        System.out.println();
-
-        System.out.println("Список пассажиров");
-        for (int i = 0; i < passengers.size(); i++) {
-            System.out.println(passengers.get(i).getPassenger());
-        }
-        System.out.println();
-
-        System.out.println("Список маршрутов");
-        for (int i = 0; i < routes.size() ; i++) {
-            System.out.println();
-            System.out.println("Название маршрута");
-            System.out.println(routes.get(i).name);
-            System.out.println("Список поездов на маршруте");
-            System.out.println(routes.get(i).getTrainList());
-            System.out.println("Список станций");
-            System.out.println(routes.get(i).getStationList());
-            System.out.println("Расстояния между станциями");
-            System.out.println(routes.get(i).getLengths());
-        }
-    }
-
     public static void main(String[] args) {
         createData();
-        //output();
 
         SwingUtilities.invokeLater(new Runnable() {
             @Override
@@ -166,7 +130,3 @@ public class Controller {
         });
     }
 }
-/*
-* Добавить паттерны
-* Добавить руководство
-* */

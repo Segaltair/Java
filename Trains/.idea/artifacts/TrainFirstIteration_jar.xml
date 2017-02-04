@@ -1,8 +1,0 @@
-<component name="ArtifactManager">
-  <artifact type="jar" name="TrainFirstIteration:jar">
-    <output-path>$PROJECT_DIR$/out/artifacts/TrainFirstIteration_jar</output-path>
-    <root id="archive" name="TrainFirstIteration.jar">
-      <element id="module-output" name="Trains" />
-    </root>
-  </artifact>
-</component>

@@ -9,8 +9,12 @@ import static java.time.LocalDateTime.now;
  * Created by Sega on 18.01.2017.
  */
 public class GraphicInterface {
-    final static int TRAIN_MAP_SIZE = 600;
-    private static GraphicTrainMap pp;
+    private final static int TOOLS_WIDTH = 200;
+    final static int TRAIN_MAP_HEIGHT = 700;
+    final static int TRAIN_MAP_WIDTH = 1000;
+    private final static int WINDOW_HEIGHT = TRAIN_MAP_HEIGHT + 50;
+    private final static int WINDOW_WIDTH = TRAIN_MAP_WIDTH + TOOLS_WIDTH +20;
+
     static LocalDateTime currentTime = LocalDateTime.of(now().getYear(), now().getMonth(), now().getDayOfMonth(), now().getHour(), now().getMinute(), now().getSecond());
 
     //Список активных элементов интерфейса
@@ -34,6 +38,7 @@ public class GraphicInterface {
     static JLabel lTime;
 
     public GraphicInterface(){
+        GraphicTrainMap pp;
         jfrm = new JFrame("Карта поездов");
 
         try {
@@ -74,22 +79,22 @@ public class GraphicInterface {
         mDelete.add(miPassengerDelete);
         menuBar.add(mDelete);
 
-        JMenu mHelp = new JMenu("Помощь");
-        JMenuItem miHowToUse = new JMenuItem("Как пользоваться");
-        mHelp.add(miHowToUse);
-        menuBar.add(mHelp);
+        //JMenu mHelp = new JMenu("Помощь");
+        //JMenuItem miHowToUse = new JMenuItem("Как пользоваться");
+        //mHelp.add(miHowToUse);
+        //menuBar.add(mHelp);
 
         jfrm.setJMenuBar(menuBar);
 
         //Настройки главного окна
         jfrm.setLayout(new FlowLayout());
-        jfrm.setMinimumSize(new Dimension(820,660));
+        jfrm.setMinimumSize(new Dimension(WINDOW_WIDTH,WINDOW_HEIGHT));
         jfrm.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         jfrm.setLocationRelativeTo(null);
 
         //Панель информации
         JPanel pTools = new JPanel();
-        pTools.setPreferredSize(new Dimension(200,600));
+        pTools.setPreferredSize(new Dimension(TOOLS_WIDTH, TRAIN_MAP_HEIGHT));
         pTools.setOpaque(true);
         pTools.setBorder(BorderFactory.createLineBorder(Color.black));
         pTools.setLayout(new GridLayout(7,1,30,50));
@@ -110,7 +115,7 @@ public class GraphicInterface {
         pTools.add(lTime);
 
         jfrm.add(pTools);
-        pp = new GraphicTrainMap(TRAIN_MAP_SIZE,TRAIN_MAP_SIZE);
+        pp = new GraphicTrainMap(TRAIN_MAP_WIDTH, TRAIN_MAP_HEIGHT);
         jfrm.add(pp);
         pTools.setAlignmentY(Component.BOTTOM_ALIGNMENT);
 

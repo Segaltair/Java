@@ -24,8 +24,8 @@ import javax.swing.*;
  * Created by Sega on 18.01.2017.
  */
 public class ActionListeners {
-    static int index;
-    static int velocity = 1;
+    private static int index;
+    private static int velocity = 1;
 
     private static void messageBox(Component component, String string){
         JOptionPane.showMessageDialog(component, string);
@@ -36,7 +36,7 @@ public class ActionListeners {
         miOpen.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Load.load("C:\\Users\\Sega\\IdeaProjects\\TrainFirstIteration\\notes3.txt");
+                Load.load(System.getProperty("user.dir") + "\\trainMap.txt");
                 messageBox(jfrm, "Карта загружена!");
             }
         });
@@ -45,7 +45,7 @@ public class ActionListeners {
         miSave.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Save.write("C:\\Users\\Sega\\IdeaProjects\\TrainFirstIteration\\notes3.txt");
+                Save.write(System.getProperty("user.dir") + "\\trainMap.txt");
                 messageBox(jfrm, "Карта сохранена!");
             }
         });
@@ -111,12 +111,13 @@ public class ActionListeners {
                     @Override
                     public void actionPerformed(ActionEvent e) {
                         String stringError = "Ошибка! В названии станции должно быть меньше 20 символов, " +
-                                "координаты х и у должны быть целым числом от 1 до " + TRAIN_MAP_SIZE + "!";
+                                "координаты х и у должны быть целым числом и меньше размеров окна (" + TRAIN_MAP_WIDTH +
+                                "," + TRAIN_MAP_HEIGHT + ")";
                         try {
-                            if (jTextFieldStation.getText().toString().length() <= 20 &&
-                                    (jTextFieldStation.getText().toString().length() > 0) &&
-                                    (Integer.parseInt(jTextFieldX.getText()) < TRAIN_MAP_SIZE) &&
-                                    (Integer.parseInt(jTextFieldY.getText()) < TRAIN_MAP_SIZE) &&
+                            if (jTextFieldStation.getText().length() <= 20 &&
+                                    (jTextFieldStation.getText().length() > 0) &&
+                                    (Integer.parseInt(jTextFieldX.getText()) < TRAIN_MAP_WIDTH) &&
+                                    (Integer.parseInt(jTextFieldY.getText()) < TRAIN_MAP_HEIGHT) &&
                                     (Integer.parseInt(jTextFieldX.getText()) > 0) &&
                                     (Integer.parseInt(jTextFieldY.getText()) > 0)) {
                                 createStation(jTextFieldStation.getText(), Integer.parseInt(jTextFieldX.getText()),
@@ -695,6 +696,7 @@ public class ActionListeners {
                 JScrollPane scroll = new JScrollPane(list);
                 JLabel jlRoute = new JLabel();
                 JLabel jlCap = new JLabel();
+                JLabel jlPassengersCount = new JLabel();
                 JLabel jlPrice = new JLabel();
                 JLabel jlVelocity = new JLabel();
                 JLabel jlDateStart = new JLabel();
@@ -709,6 +711,7 @@ public class ActionListeners {
                                     jlRoute.setText("Маршрут: " + route.name);
                             }
                             jlCap.setText("Общая вместимость: " + trains.get(i).capacity);
+                            jlPassengersCount.setText("Количество пассажиров: " + trains.get(i).passengerList.size());
                             jlPrice.setText("Цена билета: " + trains.get(i).price);
                             jlVelocity.setText("Скорость поезда: " + trains.get(i).velocity + "px/sec");
                             jlDateStart.setText("Время отправления: " + trains.get(i).timeStart);
@@ -721,6 +724,7 @@ public class ActionListeners {
                 jd.add(scroll,BorderLayout.CENTER);
                 jPanel.add(jlRoute);
                 jPanel.add(jlCap);
+                jPanel.add(jlPassengersCount);
                 jPanel.add(jlPrice);
                 jPanel.add(jlVelocity);
                 jPanel.add(jlDateStart);

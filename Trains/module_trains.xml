@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="module_trains" default="compile.module.trains">
+  <dirname property="module.trains.basedir" file="${ant.file.module_trains}"/>
+  
+  <property name="module.jdk.home.trains" value="${project.jdk.home}"/>
+  <property name="module.jdk.bin.trains" value="${project.jdk.bin}"/>
+  <property name="module.jdk.classpath.trains" value="${project.jdk.classpath}"/>
+  
+  <property name="compiler.args.trains" value="-encoding UTF-8 -source 8 -target 8 ${compiler.args}"/>
+  
+  <property name="trains.output.dir" value="${module.trains.basedir}/out/production/Trains"/>
+  <property name="trains.testoutput.dir" value="${module.trains.basedir}/out/test/Trains"/>
+  
+  <path id="trains.module.bootclasspath">
+    <!-- Paths to be included in compilation bootclasspath -->
+  </path>
+  
+  <path id="trains.module.production.classpath">
+    <path refid="${module.jdk.classpath.trains}"/>
+  </path>
+  
+  <path id="trains.runtime.production.module.classpath">
+    <pathelement location="${trains.output.dir}"/>
+  </path>
+  
+  <path id="trains.module.classpath">
+    <path refid="${module.jdk.classpath.trains}"/>
+    <pathelement location="${trains.output.dir}"/>
+  </path>
+  
+  <path id="trains.runtime.module.classpath">
+    <pathelement location="${trains.testoutput.dir}"/>
+    <pathelement location="${trains.output.dir}"/>
+  </path>
+  
+  
+  <patternset id="excluded.from.module.trains">
+    <patternset refid="ignored.files"/>
+  </patternset>
+  
+  <patternset id="excluded.from.compilation.trains">
+    <patternset refid="excluded.from.module.trains"/>
+  </patternset>
+  
+  <path id="trains.module.sourcepath">
+    <dirset dir="${module.trains.basedir}">
+      <include name="src"/>
+    </dirset>
+  </path>
+  
+  
+  <target name="compile.module.trains" depends="compile.module.trains.production,compile.module.trains.tests" description="Compile module Trains"/>
+  
+  <target name="compile.module.trains.production" depends="register.custom.compilers" description="Compile module Trains; production classes">
+    <mkdir dir="${trains.output.dir}"/>
+    <javac2 destdir="${trains.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.trains}/javac">
+      <compilerarg line="${compiler.args.trains}"/>
+      <bootclasspath refid="trains.module.bootclasspath"/>
+      <classpath refid="trains.module.production.classpath"/>
+      <src refid="trains.module.sourcepath"/>
+      <patternset refid="excluded.from.compilation.trains"/>
+    </javac2>
+    
+    <copy todir="${trains.output.dir}">
+      <fileset dir="${module.trains.basedir}/src">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="compile.module.trains.tests" depends="register.custom.compilers,compile.module.trains.production" description="compile module Trains; test classes" unless="skip.tests"/>
+  
+  <target name="clean.module.trains" description="cleanup module">
+    <delete dir="${trains.output.dir}"/>
+    <delete dir="${trains.testoutput.dir}"/>
+  </target>
+</project>
